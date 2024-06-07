@@ -18,7 +18,7 @@ resource "aws_instance" "apache_server" {
   }
 
   provisioner "file" {
-    source      = "HTML/public_html/"
+    source      = "${path.module}/../HTML/public_html/"
     destination = "/tmp/public_html"
   }
 
@@ -56,7 +56,7 @@ resource "aws_instance" "elk_server" {
 
 resource "aws_security_group" "allow_http_https" {
   name        = "allow_http_https"
-  description = "Allow HTTP and HTTPS inbound traffic"
+  description = "Allow HTTP, HTTPS, and SSH inbound traffic"
 
   ingress {
     from_port   = 80
@@ -72,6 +72,13 @@ resource "aws_security_group" "allow_http_https" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -82,7 +89,7 @@ resource "aws_security_group" "allow_http_https" {
 
 resource "aws_security_group" "allow_elk" {
   name        = "allow_elk"
-  description = "Allow necessary ELK stack ports"
+  description = "Allow necessary ELK stack ports and SSH"
 
   ingress {
     from_port   = 5601
@@ -101,6 +108,13 @@ resource "aws_security_group" "allow_elk" {
   ingress {
     from_port   = 5044
     to_port     = 5044
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
