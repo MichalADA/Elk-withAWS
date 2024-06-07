@@ -9,13 +9,19 @@ resource "aws_instance" "apache_server" {
     Name = "ApacheServer"
   }
 
+  provisioner "file" {
+    source      = "HTML/public_html/"
+    destination = "/tmp/public_html"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y apache2",
       "sudo systemctl start apache2",
       "sudo systemctl enable apache2",
-      "echo '<html><body><h1>Statyczna Strona HTML</h1></body></html>' | sudo tee /var/www/html/index.html"
+      "sudo rm -rf /var/www/html/*",
+      "sudo cp -r /tmp/public_html/* /var/www/html/"
     ]
   }
 
