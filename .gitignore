@@ -13,3 +13,7 @@ override.tf.json
 #Html pliks 
 .DS_Store
 .idea/*
+
+
+# Keys
+Elk-key.pem
