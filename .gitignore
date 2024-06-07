@@ -8,3 +8,8 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+
+#Html pliks 
+.DS_Store
+
