@@ -12,4 +12,4 @@ override.tf.json
 
 #Html pliks 
 .DS_Store
-
+.idea/*
