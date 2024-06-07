@@ -19,7 +19,7 @@ variable "instance_type" {
 variable "key_name" {
   description = "Name of the SSH key pair"
   type        = string
-  default     = "Elk-key"
+  default     = "ELk-key"
 }
 
 variable "private_key_path" {
